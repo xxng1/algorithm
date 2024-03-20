@@ -1,15 +1,15 @@
 import sys
+input = sys.stdin.readline
 
-N, X = map(int, sys.stdin.readline().split())
-visitors = list(map(int, sys.stdin.readline().split()))
+N, X = map(int, input().split())
+visitors = list(map(int, input().split()))
 
 window_sum = sum(visitors[:X])
 max_visitors = window_sum
 count_max = 1
+for i in range(N-X):
+    window_sum = window_sum - visitors[i] + visitors[i+X]
 
-for i in range(1, N - X + 1):
-    window_sum = window_sum - visitors[i - 1] + visitors[i + X - 1]
-    
     if window_sum > max_visitors:
         max_visitors = window_sum
         count_max = 1
@@ -17,7 +17,7 @@ for i in range(1, N - X + 1):
         count_max += 1
 
 if max_visitors == 0:
-    print("SAD")
+    print('SAD')
 else:
     print(max_visitors)
     print(count_max)
