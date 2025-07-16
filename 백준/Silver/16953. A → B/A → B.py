@@ -1,23 +1,25 @@
-#2를 곱했는데 1이되는경우는 없음 거꾸로내려오면 될듯
+A, B = map(int, input().split())
 
-A, B = (input().split())
-
-cnt = 1
+cnt = 0
 while True:
     if A == B:
         break
+    
+    if A > B:
+        cnt = -2
+        break
 
-    if int(B) < int(A):
-        cnt = -1
-        break
-    elif B[-1] == '1':
-        B = B[0:-1]
+
+
+    if B % 10 == 1:
+        B = B // 10
         cnt += 1
-    elif int(B) % 2 != 0:
-        cnt = -1
-        break
+    elif B % 2 == 0:
+        B = B // 2
+        cnt += 1
     else:
-        B = str(int(B) // 2)
-        cnt += 1
+        cnt = -2
+        break
 
-print(cnt)
+
+print(cnt+1)
