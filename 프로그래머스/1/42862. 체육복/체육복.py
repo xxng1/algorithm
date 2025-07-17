@@ -4,12 +4,14 @@ def solution(n, lost, reserve):
     if len(reserve) > 1:
         reserve.sort()
     
-    # ✅ 교집합 제거
+    
     intersection = list(set(lost) & set(reserve))
+    
     for person in intersection:
         lost.remove(person)
         reserve.remove(person)
-
+    
+    
     reserve_len = len(reserve)
     p1 = 0
     
@@ -17,14 +19,28 @@ def solution(n, lost, reserve):
         visited = False
         
         for p2 in range(len(reserve)):
-            if (lost[p1] - 1) == reserve[p2] or (lost[p1] + 1) == reserve[p2]:
-                reserve.pop(p2)
+            # if lost[p1] in reserve:
+            #     reserve.remove(lost[p1])
+            #     p1 += 1
+            #     visited = True
+            #     break
+
+            if ( lost[p1] - 1 ) == reserve[p2]:
+                reserve.remove(lost[p1] - 1)
+                p1 += 1
                 visited = True
                 break
-        
-        if visited:
-            lost.pop(p1)
-        else:
+            elif ( lost[p1] + 1 ) == reserve[p2]:
+                reserve.remove(lost[p1] + 1)
+                p1 += 1
+                visited = True
+                break
+                
+        if not visited:
             p1 += 1
     
-    return n - len(lost)
+    # print( reserve_len - len(reserve)) # 빌려준사람
+    # print( len(lost) - ( reserve_len - len(reserve) ) ) # 빌리지못한사람
+    
+    
+    return n - ( len(lost) - ( reserve_len - len(reserve) ) )
