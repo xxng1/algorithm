@@ -1,11 +1,16 @@
-n = int(input())
+N = int(input())
 
-left = 0
-right = n
-while(left<= right):
-    mid = (left+right)//2
-    if mid ** 2 >= n:
-        right = mid -1
+p1 = 0
+p2 = N
+
+
+
+while p1 <= p2:
+    mid = (p1 + p2) // 2
+
+    if (mid) * (mid) >= N:
+        p2 = mid -1
     else:
-        left = mid + 1
-print(left)
+        p1 = mid + 1 
+
+print(p1)
