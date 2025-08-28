@@ -1,38 +1,44 @@
 import heapq
+
+
 import sys
 
 input = sys.stdin.readline
-INF = 100000000
 
-V, E = map(int, input().split())
-K = int(input()) # start
-dp = [INF]*(V+1)
+
+N, M = map(int, input().split())
+K = int(input())
+
+INF = float('inf')
+graph = [ [] for _ in range(N+1)]
+dp = [INF] * (N+1)
+for i in range(M):
+    a, b, c = map(int, input().split())
+    graph[a].append((c, b))
+
 heap = []
-graph = [[] for _ in range(V + 1)]
 
-for _ in range(E):
-    u, v, w = map(int, input().split())
-    graph[u].append((w, v))
-
-def Dijkstra(start):
+def djstra(start):
     dp[start] = 0
     heapq.heappush(heap, (0, start))
 
     while heap:
         weight, current = heapq.heappop(heap)
-
+        
         if dp[current] < weight:
             continue
+
         for w, next_node in graph[current]:
             next_weight = w + weight
-            if next_weight < dp[next_node]:
+
+            if dp[next_node] > next_weight:
                 dp[next_node] = next_weight
                 heapq.heappush(heap, (next_weight, next_node))
+djstra(K)
 
-Dijkstra(K)
-
-for i in range(1, V+1):
-    if dp[i] == INF:
+for i in range(1, len(dp)):
+    if dp[i] == float('inf'):
         print("INF")
-    else:
-        print(dp[i])
+        continue
+    print(dp[i])
+    
