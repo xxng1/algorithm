@@ -16,8 +16,8 @@ for k in range(N):
         for j in range(N):
             # if k == j or i == j:
             #     continue
-            
-            graph[i][j] = min(graph[i][j], graph[i][k] + graph[k][j])
+            if graph[i][j] > graph[i][k] + graph[k][j]:
+                graph[i][j] = graph[i][k] + graph[k][j]
 
 
 # for i in graph:
